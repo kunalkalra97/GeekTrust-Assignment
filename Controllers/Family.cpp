@@ -37,6 +37,11 @@ bool Family::hasMember(string personName) {
     return this->hasChild(personName) || this->isFamilyOf(personName);
 }
 
+void Family::addToChildren(string childName, Gender gender) {
+    Person* child = new Person(childName, gender);
+    this->children.push_back(child);
+}
+
 
 //Getters
 Person* Family::getHusband() {
