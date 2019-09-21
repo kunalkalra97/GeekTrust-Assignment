@@ -29,7 +29,7 @@ public:
     bool hasChild(string personName);
     bool isFamilyOf(string personName);
     bool hasMember(string personName);
-    void addToChildren(string childName, Gender gender);
+    void addToChildren(Person* child);
     
     //Getters
     Person* getHusband();

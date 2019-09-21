@@ -27,8 +27,9 @@ public:
     Family* getRootFamily();
     
     //Methods
-    void addFamily(Family* rootFamily, Family* family);
-    void addChild(string motherName, string childName, Gender childGender);
+    void addFamily(Family* family);
+    void addChild(string motherName, Person* child);
+    void addChildToFamily(Family* family, Person* child);
     
 };
 

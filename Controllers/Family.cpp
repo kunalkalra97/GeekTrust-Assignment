@@ -24,8 +24,10 @@ Family::Family(Person* husband, Person* wife, vector <Person *> children) {
 bool Family::hasChild(string personName) {
     vector <Person*> children = this->getChildren();
     for(int i=0; i<children.size(); i++) {
-        if(children[i]->getName() == personName) return true;
+        if(children[i]->getName().compare(personName) == 0)
+            return true;
     }
+    
     return false;
 }
 
@@ -37,8 +39,7 @@ bool Family::hasMember(string personName) {
     return this->hasChild(personName) || this->isFamilyOf(personName);
 }
 
-void Family::addToChildren(string childName, Gender gender) {
-    Person* child = new Person(childName, gender);
+void Family::addToChildren(Person* child) {
     this->children.push_back(child);
 }
 
@@ -66,8 +67,7 @@ void Family::setFamilyOfChildren(Person *child, Family *family) {
         cout << "The family does not have this child, hence it cannot be added";
         return;
     }
-    unordered_map <Person*, Family*> familyOfChildren = this->getFamilyOfChildren();
-    familyOfChildren[child] = family;
+    this->familyOfChildren.insert({child, family});
 }
 
 
