@@ -16,20 +16,23 @@ class FamilyTree {
     Family* rootFamily;
     
     //Private Methods
-    Family* findParentFamily(Family* rootFamily, string name);
-    Family* findFamily(Family* rootFamily, string name);
+    
     
 public:
     //Constructors
     FamilyTree(Family* rootFamily);
     
+    
     //Getters
     Family* getRootFamily();
     
     //Methods
+    Family* findChildFamily(string name);
+    Family* findParentFamily(string name);
     void addFamily(Family* family);
     void addChild(string motherName, Person* child);
     void addChildToFamily(Family* family, Person* child);
+    
     
 };
 

@@ -22,11 +22,10 @@ FamilyTree::FamilyTree(Family* rootFamily) {
     this->rootFamily = rootFamily;
 }
 
-//Private Methods
-
-Family* FamilyTree::findParentFamily(Family *rootFamily, string name) {
+Family* FamilyTree::findChildFamily(string name) {
     queue <Family*> familyQueue;
-    familyQueue.push(rootFamily);
+    familyQueue.push(this->rootFamily);
+    
     //Breadth-First search to find Family, staring with root node
     while(!familyQueue.empty()) {
         Family* tempFamily = familyQueue.front();
@@ -45,9 +44,9 @@ Family* FamilyTree::findParentFamily(Family *rootFamily, string name) {
     return NULL;
 }
 
-Family* FamilyTree::findFamily(Family *rootFamily, string name) {
+Family* FamilyTree::findParentFamily(string name) {
     queue <Family*> familyQueue;
-    familyQueue.push(rootFamily);
+    familyQueue.push(this->rootFamily);
     
     //Breadth-First search to find Family, staring with root node
     while(!familyQueue.empty()) {
@@ -78,8 +77,8 @@ Family* FamilyTree::getRootFamily() {
 void FamilyTree::addFamily(Family *family) {
     Person* husband= family->getHusband();
     Person* wife = family->getWife();
-    Family* husbandFamily = this->findParentFamily(this->rootFamily, husband->getName());
-    Family* wifeFamily = this->findParentFamily(this->rootFamily, wife->getName());
+    Family* husbandFamily = this->findChildFamily(husband->getName());
+    Family* wifeFamily = this->findChildFamily(wife->getName());
     
     if(husbandFamily == NULL && wifeFamily == NULL) {
         return;
@@ -91,7 +90,7 @@ void FamilyTree::addFamily(Family *family) {
 }
 
 void FamilyTree::addChild(string motherName, Person* child) {
-    Family* motherFamily = this->findFamily(this->rootFamily, motherName);
+    Family* motherFamily = this->findParentFamily(motherName);
     if(motherFamily == NULL) {
         cout << "Mother's family does not exist";
         return;
@@ -102,8 +101,8 @@ void FamilyTree::addChild(string motherName, Person* child) {
 void FamilyTree::addChildToFamily(Family *family, Person *child) {
     Person* husband= family->getHusband();
     Person* wife = family->getWife();
-    Family* husbandFamily = this->findParentFamily(this->rootFamily, husband->getName());
-    Family* wifeFamily = this->findParentFamily(this->rootFamily, wife->getName());
+    Family* husbandFamily = this->findChildFamily(husband->getName());
+    Family* wifeFamily = this->findChildFamily(wife->getName());
     
     if(husbandFamily == NULL && wifeFamily == NULL) {
         cout << "Parent family could not be found";
@@ -112,5 +111,7 @@ void FamilyTree::addChildToFamily(Family *family, Person *child) {
     Family* parentFamily = husbandFamily == NULL ? wifeFamily : husbandFamily;
     parentFamily->addToChildren(child);
 }
+
+
 
 
